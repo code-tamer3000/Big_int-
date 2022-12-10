@@ -61,4 +61,3 @@ big_int operator +(const big_int& first, const big_int& second);
 big_int operator /(const big_int& first, const big_int& second);
 big_int operator *(const big_int& first, const big_int& second);
 }
-
