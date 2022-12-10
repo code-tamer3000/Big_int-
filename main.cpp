@@ -1,7 +1,4 @@
 #include "BigIntLib.h"
-#include <iostream>
-#include <vector>
-#include <string>
 
 int main() {
     BI::big_int first("132321321564648985132134869854321321");
