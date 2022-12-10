@@ -1,59 +1,6 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#pragma once
+#include "BigIntLib.h"
 
-class big_int {
-  public:
-
-    //Конструкторы создания для всех целочисленных типов
-    big_int() : lenght(1) , digits(1), is_positive(true) {};
-    explicit big_int(std::string number);
-    explicit big_int(const char* number);
-    explicit big_int(const char number);
-    explicit big_int(const unsigned char number);
-    explicit big_int(const short number);
-    explicit big_int(const unsigned short number);
-    explicit big_int(const int number);
-    explicit big_int(const unsigned int number);
-    explicit big_int(const long number);
-    explicit big_int(const unsigned long number);
-    explicit big_int(const long long number);
-    explicit big_int(const unsigned long long number);
-    
-    big_int& operator= (const big_int& other);
-
-    //перегрузка арифметики 
-    big_int& operator +=(const big_int& other); 
-    big_int& operator -=(const big_int& other);
-    big_int& operator *=(const big_int& other);
-    big_int& operator /=(const big_int& other);
-    big_int& operator ++();
-    big_int operator ++(int);
-    big_int& operator --();
-    big_int operator --(int);
-    big_int& operator -();
-
-    //перегрузка сравнений
-    bool operator <(const big_int& other) const;
-    bool operator ==(const big_int& other) const;
-    bool operator >(const big_int& other) const;
-    bool operator <=(const big_int& other) const;
-    bool operator >=(const big_int& other) const;
-    bool operator !=(const big_int& other) const;
-
-    //методы
-    std::string get_number() const;
-    std::string get_abs() const;  
-    ~big_int() {};
-
-  private:
-    unsigned int lenght;
-    bool is_positive;
-    std::vector<int> digits;
-};
-
-big_int& big_int::operator *=(const big_int& other) {
+BI::big_int& BI::big_int::operator *=(const big_int& other) {
     if (lenght == 1 && digits[0] == 0 || other.lenght == 1 && other.digits[0] == 0){
         *this = big_int(0);
         return *this;
@@ -91,58 +38,58 @@ big_int& big_int::operator *=(const big_int& other) {
     return *this;
 }
 
-big_int& big_int::operator ++() {
+BI::big_int& BI::big_int::operator ++() {
     *this += big_int(1);
     return *this;
 }
 
-big_int big_int::operator ++(int) {
+BI::big_int BI::big_int::operator ++(int) {
     big_int copy(*this);
     ++*this;
     return copy;
 }
 
-big_int& big_int::operator --() {
+BI::big_int& BI::big_int::operator --() {
     *this -= big_int(1);
     return *this;
 }
 
-big_int big_int::operator --(int) {
+BI::big_int BI::big_int::operator --(int) {
     big_int copy(*this);
     --*this;
     return copy;
 }
 
-big_int operator -(const big_int& first, const big_int& second) {
-    big_int tmp(first);
+BI::big_int BI::operator -(const BI::big_int& first, const BI::big_int& second) {
+    BI::big_int tmp(first);
     tmp -= second;
     return tmp;
 }
 
-big_int operator +(const big_int& first, const big_int& second) {
-    big_int tmp(first);
+BI::big_int BI::operator +(const BI::big_int& first, const BI::big_int& second) {
+    BI::big_int tmp(first);
     tmp += second;
     return tmp;
 }
 
-big_int operator /(const big_int& first, const big_int& second) {
-    big_int tmp(first);
+BI::big_int BI::operator /(const BI::big_int& first, const BI::big_int& second) {
+    BI::big_int tmp(first);
     tmp /= second;
     return tmp;
 }
 
-big_int operator *(const big_int& first, const big_int& second) {
-    big_int tmp(first);
+BI::big_int BI::operator *(const BI::big_int& first, const BI::big_int& second) {
+    BI::big_int tmp(first);
     tmp *= second;
     return tmp;
 }
 
-big_int& big_int::operator -() {
+BI::big_int& BI::big_int::operator -() {
     is_positive = !is_positive;
     return *this;
 }
 
-bool big_int::operator <(const big_int& other) const{
+bool BI::big_int::operator <(const big_int& other) const{
     if (is_positive == other.is_positive) {
         if (lenght < other.lenght) {
             return is_positive ? true : false;
@@ -156,7 +103,7 @@ bool big_int::operator <(const big_int& other) const{
     }
 }
 
-bool big_int::operator ==(const big_int& other) const{
+bool BI::big_int::operator ==(const big_int& other) const{
     if (is_positive == other.is_positive) {
         if (lenght == other.lenght) {
             return get_abs() == other.get_abs();
@@ -165,23 +112,23 @@ bool big_int::operator ==(const big_int& other) const{
     return false;        
 }
 
-bool big_int::operator >(const big_int& other) const{ 
+bool BI::big_int::operator >(const big_int& other) const{ 
     return !(*this < other);        
 }
 
-bool big_int::operator <=(const big_int& other) const{   
+bool BI::big_int::operator <=(const big_int& other) const{   
     return (*this < other || *this == other);        
 }
 
-bool big_int::operator >=(const big_int& other) const{   
+bool BI::big_int::operator >=(const big_int& other) const{   
     return (*this > other || *this == other);        
 }
 
-bool big_int::operator !=(const big_int& other) const{   
+bool BI::big_int::operator !=(const big_int& other) const{   
     return !(*this == other);        
 }
 
-big_int& big_int::operator -=(const big_int& other) {
+BI::big_int& BI::big_int::operator -=(const big_int& other) {
     if (is_positive != other.is_positive) {
         big_int tmp = other;
         *this += -tmp;
@@ -227,7 +174,7 @@ big_int& big_int::operator -=(const big_int& other) {
     return *this;
 }
 
-big_int& big_int::operator +=(const big_int& other) {
+BI::big_int& BI::big_int::operator +=(const big_int& other) {
     if (is_positive != other.is_positive) {
         big_int tmp = other;
         *this -= -tmp;
@@ -256,7 +203,7 @@ big_int& big_int::operator +=(const big_int& other) {
     return *this;
 }
 
-big_int& big_int::operator /=(const big_int& other) {
+BI::big_int& BI::big_int::operator /=(const big_int& other) {
     if ((lenght <= other.lenght && this->get_abs() < other.get_abs()) || (lenght == 1 && digits[0] == 0)) {
         *this = big_int();
         return *this;
@@ -306,14 +253,14 @@ big_int& big_int::operator /=(const big_int& other) {
     return *this;
 }
 
-big_int& big_int::operator= (const big_int& other) {
+BI::big_int& BI::big_int::operator= (const big_int& other) {
     lenght = other.lenght;
     is_positive = other.is_positive;
     digits = other.digits;
     return *this;
 }
 
-big_int operator %(const big_int& first, const big_int& second) {
+BI::big_int BI::operator %(const big_int& first, const big_int& second) {
     big_int tmp = first / second;
     if (tmp == big_int()) {
         tmp = big_int();
@@ -323,19 +270,19 @@ big_int operator %(const big_int& first, const big_int& second) {
     return tmp;
 }
 
-std::istream& operator>>(std::istream& stream, big_int& number) {
+std::istream& BI::operator>>(std::istream& stream, BI::big_int& number) {
     std::string num;
     stream >> num;
-    number = big_int(num);
+    number = BI::big_int(num);
     return stream;
 }
 
-std::ostream& operator<<(std::ostream& stream, const big_int& number) {
+std::ostream& BI::operator<<(std::ostream& stream, const BI::big_int& number) {
     stream << number.get_number();
     return stream;
 }
 
-big_int::big_int(std::string number) {
+BI::big_int::big_int(std::string number) {
     if (number.empty()) {
         lenght = 0;
         is_positive = true;
@@ -353,29 +300,29 @@ big_int::big_int(std::string number) {
     }
 }
 
-big_int::big_int(const char* number): big_int(std::string(number)) {};
+BI::big_int::big_int(const char* number): big_int(std::string(number)) {};
 
-big_int::big_int(const char number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const char number): big_int(std::to_string(number)) {};
 
-big_int::big_int(const unsigned char number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const unsigned char number): big_int(std::to_string(number)) {};
 
-big_int::big_int(const short number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const short number): big_int(std::to_string(number)) {};
 
-big_int::big_int(const unsigned short number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const unsigned short number): big_int(std::to_string(number)) {};
 
-big_int::big_int(const int number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const int number): big_int(std::to_string(number)) {};
 
-big_int::big_int(const unsigned int number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const unsigned int number): big_int(std::to_string(number)) {};
 
-big_int::big_int(const long number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const long number): big_int(std::to_string(number)) {};
 
-big_int::big_int(const unsigned long number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const unsigned long number): big_int(std::to_string(number)) {};
 
-big_int::big_int(const long long number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const long long number): big_int(std::to_string(number)) {};
 
-big_int::big_int(const unsigned long long number): big_int(std::to_string(number)) {};
+BI::big_int::big_int(const unsigned long long number): big_int(std::to_string(number)) {};
 
-std::string big_int::get_number() const {
+std::string BI::big_int::get_number() const {
     std::string number;
     if (!is_positive) {
         number += '-';
@@ -386,25 +333,6 @@ std::string big_int::get_number() const {
     return number;
 }
 
-std::string big_int::get_abs() const {
+std::string BI::big_int::get_abs() const {
     return is_positive ? get_number() : get_number().substr(1) ;
-}
-
-int main() {
-    big_int first("132321321564648985132134869854321321");
-    big_int second(132131546498478);
-    big_int third("99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999");
-    std::cout << "first number is " << first << "\n\n";
-    std::cout << "second number is " << second << "\n\n";
-    std::cout << "third number is " << third << "\n\n";
-    std::cout << "first plus third is eqal to " << first + third << "\n\n";
-    std::cout << "first multiple second is eqal to " << first * second << "\n\n";
-    std::cout << "let's use increment ++ on third number: " << ++third << "\n\n";
-    std::cout << "after ++ let's use increment -- on the third number: " << '\n' << --third << "\n\n";
-    if (first > second) {
-        std::cout << "first greater than second" << "\n\n";
-    }
-    std::cout << "let's devide third by second, it will be eqal to " << '\n' << third / second << "\n\n";
-    std:: cout << "the remainder of this division will be " << third % second << "\n\n";
-    return 0;
 }
