@@ -205,7 +205,7 @@ BI::big_int& BI::big_int::operator +=(const big_int& other) {
 
 BI::big_int& BI::big_int::operator /=(const big_int& other) {
     if ((lenght <= other.lenght && this->get_abs() < other.get_abs()) || (lenght == 1 && digits[0] == 0)) {
-        *this = big_int();
+        *this = big_int(0);
         return *this;
     }
     if (other.lenght == 1 && other.digits[0] == 0) {
@@ -263,7 +263,7 @@ BI::big_int& BI::big_int::operator= (const big_int& other) {
 BI::big_int BI::operator %(const big_int& first, const big_int& second) {
     big_int tmp = first / second;
     if (tmp == big_int()) {
-        tmp = big_int();
+        tmp = big_int(first);
     } else {
         tmp = first - (tmp * second);
     }

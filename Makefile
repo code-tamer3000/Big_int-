@@ -3,7 +3,7 @@
 CC=g++
 CFLAGS=-c 
 LDFLAGS=
-SOURCES=main.cpp BigIntLib.cpp 
+SOURCES= main.cpp BigFloatLib.cpp  BigIntLib.cpp 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=main
 PREFIX = 
