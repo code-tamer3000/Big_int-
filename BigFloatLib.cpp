@@ -180,9 +180,9 @@ BF::big_float& BF::big_float::operator -=(const big_float& other) {
 bool BF::big_float::operator <(const big_float& other) const{
     if (is_positive == other.is_positive) {
         if (dot_pos < other.dot_pos) {
-            return is_positive ? true : false;
+            return is_positive;
         } else if (dot_pos > other.dot_pos) {
-            return is_positive ? false : true;
+            return !is_positive;
         } else {
             if (is_positive) {
                 return get_abs() < other.get_abs();
@@ -191,7 +191,7 @@ bool BF::big_float::operator <(const big_float& other) const{
             }
         }
     } else {
-        return is_positive ? false : true;
+        return !is_positive;
     }
 }
 

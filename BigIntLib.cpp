@@ -92,14 +92,14 @@ BI::big_int& BI::big_int::operator -() {
 bool BI::big_int::operator <(const big_int& other) const{
     if (is_positive == other.is_positive) {
         if (lenght < other.lenght) {
-            return is_positive ? true : false;
+            return is_positive;
         } else if (lenght > other.lenght) {
-            return is_positive ? false : true;
+            return !is_positive;
         } else {
            return (is_positive ? get_abs() < other.get_abs() : other.get_abs() < get_abs()); 
         }
     } else {
-        return is_positive ? false : true;
+        return !is_positive;
     }
 }
 
