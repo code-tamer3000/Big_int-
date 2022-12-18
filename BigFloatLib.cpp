@@ -295,7 +295,7 @@ BF::big_float::big_float(const long long number): BF::big_float(std::to_string(n
 
 BF::big_float::big_float(const unsigned long long number): BF::big_float(std::to_string(number)) {};
 
-BF::big_float::big_float(const BI::big_int number): BF::big_float(number.get_number()) {};
+BF::big_float::big_float(const BI::big_int& number): BF::big_float(number.get_number()) {};
 
 std::string BF::big_float::get_number() const {
     std::string answer;

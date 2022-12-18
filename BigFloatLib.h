@@ -24,7 +24,7 @@ public:
   explicit big_float(const unsigned long number);
   explicit big_float(const long long number);
   explicit big_float(const unsigned long long number);
-  explicit big_float(const BI::big_int a);
+  explicit big_float(const BI::big_int& a);
  
     
   big_float& operator= (const big_float& other);
