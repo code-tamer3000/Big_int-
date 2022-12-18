@@ -84,9 +84,10 @@ BI::big_int BI::operator *(const BI::big_int& first, const BI::big_int& second) 
     return tmp;
 }
 
-BI::big_int& BI::big_int::operator -() {
-    is_positive = !is_positive;
-    return *this;
+BI::big_int BI::big_int::operator -() {
+    BI::big_int tmp(*this);
+    tmp.is_positive = !tmp.is_positive;
+    return tmp;
 }
 
 bool BI::big_int::operator <(const big_int& other) const{
@@ -220,10 +221,10 @@ BI::big_int& BI::big_int::operator /=(const big_int& other) {
         if (is_positive) {
             big_int tmp(other);
             *this /= -tmp;
-            -*this;
+            is_positive = !is_positive;
             return *this;
         } else {
-            -*this;
+            is_positive = !is_positive;
             change = true;
         }
     }
@@ -231,8 +232,8 @@ BI::big_int& BI::big_int::operator /=(const big_int& other) {
     big_int answer(std::string(lenght - other.lenght, '0'));
 
     if (!is_positive) {
-        -answer;
-        -*this;
+        answer.is_positive = !answer.is_positive;
+        is_positive = !is_positive;
         change = true;
     }
 
@@ -247,7 +248,7 @@ BI::big_int& BI::big_int::operator /=(const big_int& other) {
             --answer.lenght;
     }
     if (change) {
-        -answer;
+        answer.is_positive = !answer.is_positive;
     }
     *this = answer;
     return *this;

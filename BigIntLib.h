@@ -32,7 +32,7 @@ namespace BI {
     big_int operator ++(int);
     big_int& operator --();
     big_int operator --(int);
-    big_int& operator -();
+    big_int operator -();
 
     //перегрузка сравнений
     bool operator <(const big_int& other) const;

@@ -1,11 +1,5 @@
 #include "BigFloatLib.h"
 
-
-
-
-
-
-
 bool BF::big_float::operator ==(const big_float& other) const{
     if (is_positive == other.is_positive) {
         if (dot_pos == other.dot_pos) {
@@ -129,7 +123,7 @@ BF::big_float BF::operator +(const BF::big_float& first, const BF::big_float& se
 BF::big_float& BF::big_float::operator -=(const big_float& other) {
     if (is_positive != other.is_positive) {
         -*this += other;
-        -*this;
+        is_positive = !is_positive;
         return *this;
     }
     long pos1 = lenght - dot_pos;
@@ -143,7 +137,7 @@ BF::big_float& BF::big_float::operator -=(const big_float& other) {
         BF::big_float tmp = other;
         tmp -= *this;
         *this = tmp;
-        -*this;
+        is_positive = !is_positive;
         if (number < BI::big_int(0)) {
             -number;
         }
@@ -172,7 +166,7 @@ BF::big_float& BF::big_float::operator -=(const big_float& other) {
         lenght++;
     }
     if (change_sign) {
-        -*this;
+        is_positive = !is_positive;
     }
     return *this;
 }
@@ -195,14 +189,16 @@ bool BF::big_float::operator <(const big_float& other) const{
     }
 }
 
-BF::big_float& BF::big_float::operator -() {
-    is_positive = !is_positive;
-    return *this;
+BF::big_float BF::big_float::operator -() {
+    BF::big_float tmp(*this);
+    tmp.is_positive = !tmp.is_positive;
+    return tmp;
 }
+
 BF::big_float& BF::big_float::operator +=(const big_float& other) {
     if (is_positive != other.is_positive) {
         -*this -= other;
-        -*this;
+        is_positive = !is_positive;
         return *this;
     }
     long pos1 = lenght - dot_pos;

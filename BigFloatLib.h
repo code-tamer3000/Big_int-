@@ -38,7 +38,7 @@ public:
   big_float operator ++(int);
   big_float& operator --();
   big_float operator --(int);
-  big_float& operator -();
+  big_float operator -();
 
   //перегрузка сравнений
   bool operator <(const big_float& other) const;
